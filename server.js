@@ -95,14 +95,43 @@ app.delete("/api/products/:id", async (req, res) => {
 
 // ✅ Update product price
 app.put("/api/products/:id", async (req, res) => {
-  const { price, mrp, discount } = req.body;
-  const product = await Product.findByIdAndUpdate(
-    req.params.id,
-    { price, mrp, discount },
-    { new: true }
-  );
-  res.json(product);
-}); 
+  try {
+    const {
+      name,
+      modelName,
+      type,
+      capacity,
+      description,
+      warranty,
+      price,
+      mrp,
+      discount,
+      images,
+    } = req.body;
+
+    const product = await Product.findByIdAndUpdate(
+      req.params.id,
+      {
+        name,
+        modelName,
+        type,
+        capacity,
+        description,
+        warranty,
+        price,
+        mrp,
+        discount,
+        images, // [] allowed (image delete works)
+      },
+      { new: true, runValidators: true }
+    );
+
+    res.json(product);
+  } catch (err) {
+    console.error("Update failed:", err);
+    res.status(500).json({ message: "Product update failed" });
+  }
+});
 
 app.get("/api/products/:id", async (req, res) => {
   const { id } = req.params;
