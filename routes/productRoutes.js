@@ -27,6 +27,7 @@ router.post("/add", upload.single("image"), async (req, res) => {
       warranty,
       description,
       image,
+      isPopular,
     });
 
     await product.save();

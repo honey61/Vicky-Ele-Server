@@ -43,8 +43,10 @@ app.post("/api/products", async (req, res) => {
       warranty,
       description,
       images, // Array of base64 strings
+      isPopular,
     } = req.body;
 
+    console.log("Received product data:", req.isPopular);
     if (!name || !price || !type) {
       return res.status(400).json({ message: "Missing required fields" });
     }
@@ -63,16 +65,14 @@ app.post("/api/products", async (req, res) => {
       warranty,
       description,
       images: imageArray,
+      isPopular,
     });
-
     await product.save();
     res.status(201).json({ message: "✅ Product added successfully", product });
   } catch (err) {
     res.status(500).json({ message: "❌ Error adding product", error: err.message });
   }
 });
-
-
 // Get all products
 app.get("/api/products", async (req, res) => {
   try {
@@ -107,6 +107,7 @@ app.put("/api/products/:id", async (req, res) => {
       mrp,
       discount,
       images,
+      isPopular,
     } = req.body;
 
     const product = await Product.findByIdAndUpdate(
@@ -121,7 +122,8 @@ app.put("/api/products/:id", async (req, res) => {
         price,
         mrp,
         discount,
-        images, // [] allowed (image delete works)
+        images, 
+        isPopular,
       },
       { new: true, runValidators: true }
     );
@@ -154,7 +156,6 @@ app.get("/api/products/:id", async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 });
-
 
 app.use("/api/leads", require("./routes/leadRoutes"));
 app.use("/api/categories", require("./routes/categoryRoutes"));

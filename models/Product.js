@@ -11,6 +11,7 @@ const ProductSchema = new mongoose.Schema({
   warranty: { type: String },
   description: { type: String },
   images: [String],// Store image filename
+  isPopular: { type: Boolean, default: false }, 
 }, { timestamps: true });
 
 module.exports = mongoose.model("Product", ProductSchema);
