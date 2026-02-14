@@ -160,6 +160,21 @@ app.get("/api/products/:id", async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 });
+// Get products by category (type)
+app.get("/api/products/category/:type", async (req, res) => {
+  try {
+    const { type } = req.params;
+
+    const products = await Product.find({
+      type: { $regex: new RegExp(type, "i") }, // case insensitive
+    });
+
+    res.json(products);
+  } catch (err) {
+    console.error("Category fetch failed:", err);
+    res.status(500).json({ message: "Failed to fetch products by category" });
+  }
+});
 
 app.use("/api/leads", require("./routes/leadRoutes"));
 app.use("/api/categories", require("./routes/categoryRoutes"));
