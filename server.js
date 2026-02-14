@@ -44,6 +44,7 @@ app.post("/api/products", async (req, res) => {
       description,
       images, // Array of base64 strings
       isPopular,
+      rank,
     } = req.body;
 
     console.log("Received product data:", req.isPopular);
@@ -66,6 +67,7 @@ app.post("/api/products", async (req, res) => {
       description,
       images: imageArray,
       isPopular,
+      rank,
     });
     await product.save();
     res.status(201).json({ message: "✅ Product added successfully", product });
@@ -108,6 +110,7 @@ app.put("/api/products/:id", async (req, res) => {
       discount,
       images,
       isPopular,
+      rank,
     } = req.body;
 
     const product = await Product.findByIdAndUpdate(
@@ -124,6 +127,7 @@ app.put("/api/products/:id", async (req, res) => {
         discount,
         images, 
         isPopular,
+        rank,
       },
       { new: true, runValidators: true }
     );

@@ -28,6 +28,7 @@ router.post("/add", upload.single("image"), async (req, res) => {
       description,
       image,
       isPopular,
+      rank,
     });
 
     await product.save();
