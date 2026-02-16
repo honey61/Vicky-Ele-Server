@@ -10,10 +10,16 @@ const ProductSchema = new mongoose.Schema({
   capacity: { type: String },
   warranty: { type: String },
   description: { type: String },
-  images: [String], // Store image filename
+
+  // ✅ NEW FIELD ADDED
+  detailDescription: {
+    type: String,
+    default: ""
+  },
+
+  images: [String],
   isPopular: { type: Boolean, default: false },
 
-  // ✅ Rank Option Set Added
   rank: {
     type: String,
     enum: [

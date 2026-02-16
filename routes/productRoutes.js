@@ -26,6 +26,7 @@ router.post("/add", upload.single("image"), async (req, res) => {
       capacity,
       warranty,
       description,
+      detailDescription,
       image,
       isPopular,
       rank,
