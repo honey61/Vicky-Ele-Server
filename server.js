@@ -42,6 +42,7 @@ app.post("/api/products", async (req, res) => {
       price,
       warranty,
       description,
+      detailDescription,
       images, // Array of base64 strings
       isPopular,
       rank,
@@ -65,6 +66,7 @@ app.post("/api/products", async (req, res) => {
       price,
       warranty,
       description,
+      detailDescription,
       images: imageArray,
       isPopular,
       rank,
